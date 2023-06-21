@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
-class RailwayController {
+class StationController {
     private final StationFacade stationFacade;
 
-    private RailwayController(StationFacade stationFacade) {
+    private StationController(StationFacade stationFacade) {
         this.stationFacade = stationFacade;
     }
 
@@ -24,7 +24,7 @@ class RailwayController {
         return stationFacade.show(name);
     }
 
-    @PostMapping("/add/station")
+    @PostMapping("/station/add")
     StationDto createStation(@RequestBody StationDto stationDto) {
         return stationFacade.add(stationDto);
     }

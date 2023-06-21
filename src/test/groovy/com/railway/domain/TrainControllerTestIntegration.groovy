@@ -1,8 +1,7 @@
 package com.railway.domain
 
-
-import com.railway.domain.station.SampleStations
-import com.railway.domain.station.StationFacade
+import com.railway.domain.train.SampleTrain
+import com.railway.domain.train.TrainFacade
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.security.test.context.support.WithMockUser
@@ -17,13 +16,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @SpringBootTest
-class RailwayControllerTestIntegration extends Specification implements SampleStations {
+class TrainControllerTestIntegration extends Specification implements SampleTrain {
 
     @Autowired
     WebApplicationContext webApplicationContext
 
     @Autowired
-    StationFacade stationFacade
+    TrainFacade trainFacade
 
     MockMvc mockMvc
 
@@ -34,33 +33,33 @@ class RailwayControllerTestIntegration extends Specification implements SampleSt
     }
 
     @WithMockUser
-    def "should get stations"() {
-        given: 'inventory has "Gdańsk", "Warszawa", "Kraków"'
-        stationFacade.add(gdansk)
-        stationFacade.add(warszawa)
-        stationFacade.add(krakow)
+    def "should get trains"() {
+        given: 'inventory has "Inka", "Awangarda", "Stańczyk"'
+        trainFacade.add(inka)
+        trainFacade.add(awangarda)
+        trainFacade.add(stanczyk)
 
-        when: 'I go to /stations'
-        ResultActions getStations = mockMvc.perform(get("/api/stations"))
+        when: 'I go to /trains'
+        ResultActions getTrains = mockMvc.perform(get("/api/trains"))
 
-        then: 'I see all stations'
-        getStations.andExpect(status().isOk())
+        then: 'I see all trains'
+        getTrains.andExpect(status().isOk())
                 .andExpect(content().json("""
                 {
                     "content": [
-                        {"name":"$gdansk.name","address":"$gdansk.address"},
-                        {"name":"$warszawa.name","address":"$warszawa.address"},
-                        {"name":"$krakow.name","address":"$krakow.address"}
+                        {"name":"$inka.name"},
+                        {"name":"$awangarda.name"},
+                        {"name":"$stanczyk.name"}
                     ]
                 }"""))
 
-        when: 'I go to /station/'
-        ResultActions getStation = mockMvc.perform(get("/api/station/$warszawa.name"))
+        when: 'I go to /train/'
+        ResultActions getTrain = mockMvc.perform(get("/api/train/$awangarda.name"))
 
-        then: 'I see details of that station'
-        getStation.andExpect(status().isOk())
+        then: 'I see details of that train'
+        getTrain.andExpect(status().isOk())
                 .andExpect(content().json("""
-                        {"name":"$warszawa.name","address":"$warszawa.address"}
+                        {"name":"$awangarda.name"}
                 """))
     }
 }

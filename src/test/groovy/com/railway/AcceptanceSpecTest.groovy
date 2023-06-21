@@ -12,10 +12,10 @@ class AcceptanceSpecTest extends Specification {
                 'from Kraków at 12:10 to Warszawa at 16:00' +
                 'from Warszawa at 16:10 to Gdańsk at 18:00'
 
-        when: 'I go to /station'
+        when: 'I go to /stations'
         then: 'I see tree stations'
 
-        when: 'I go to /train'
+        when: 'I go to /trains'
         then: 'I see trains'
 
         when: 'I go to /station/track'
