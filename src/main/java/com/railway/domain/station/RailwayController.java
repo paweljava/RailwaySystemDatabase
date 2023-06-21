@@ -1,7 +1,6 @@
-package com.railway.station;
+package com.railway.domain.station;
 
-import com.railway.station.dto.StationDto;
-import com.railway.station.domain.StationFacade;
+import com.railway.domain.station.dto.StationDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.railway.station.dto;
+package com.railway.domain.station.dto;
 
 public class StationNotFoundException extends RuntimeException{
     public StationNotFoundException(String id) {

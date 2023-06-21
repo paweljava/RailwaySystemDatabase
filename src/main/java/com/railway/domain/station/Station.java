@@ -1,8 +1,7 @@
-package com.railway.station.domain;
+package com.railway.domain.station;
 
-import com.railway.station.dto.StationDto;
+import com.railway.domain.station.dto.StationDto;
 import lombok.Builder;
-import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

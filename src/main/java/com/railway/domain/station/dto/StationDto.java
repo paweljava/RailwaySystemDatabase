@@ -1,4 +1,4 @@
-package com.railway.station.dto;
+package com.railway.domain.station.dto;
 
 import lombok.Builder;
 import lombok.Getter;

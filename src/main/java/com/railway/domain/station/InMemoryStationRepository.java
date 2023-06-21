@@ -1,4 +1,4 @@
-package com.railway.station.domain;
+package com.railway.domain.station;
 
 import lombok.NonNull;
 import org.springframework.data.domain.*;

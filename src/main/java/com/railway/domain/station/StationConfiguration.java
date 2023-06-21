@@ -1,4 +1,4 @@
-package com.railway.station.domain;
+package com.railway.domain.station;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

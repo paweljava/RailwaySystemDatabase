@@ -1,12 +1,10 @@
-package com.railway.station.domain
+package com.railway.domain.station
 
-import com.railway.station.dto.StationDto
-import com.railway.station.domain.StationConfiguration
-import com.railway.station.domain.StationFacade
-import com.railway.station.dto.StationNotFoundException
+
+import com.railway.domain.station.dto.StationNotFoundException
+import com.railway.domain.station.dto.StationDto
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import spock.lang.Specification
 
