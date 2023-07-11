@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class StationDto {
+public class CreateStationDto {
 
     private final String name;
     private final String address;

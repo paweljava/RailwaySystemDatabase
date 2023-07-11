@@ -1,6 +1,6 @@
 package com.railway.domain.station;
 
-import com.railway.domain.station.dto.StationDto;
+import com.railway.domain.station.dto.CreateStationDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api")
 class StationController {
+
     private final StationFacade stationFacade;
 
     private StationController(StationFacade stationFacade) {
@@ -15,18 +16,18 @@ class StationController {
     }
 
     @GetMapping("/stations")
-    Page<StationDto> getStation(Pageable pageable) {
+    Page<CreateStationDto> getStation(Pageable pageable) {
         return stationFacade.findAll(pageable);
     }
 
     @GetMapping("/station/{name}")
-    StationDto getStation(@PathVariable String name) {
+    CreateStationDto getStation(@PathVariable String name) {
         return stationFacade.show(name);
     }
 
     @PostMapping("/station/add")
-    StationDto createStation(@RequestBody StationDto stationDto) {
-        return stationFacade.add(stationDto);
+    CreateStationDto createStation(@RequestBody CreateStationDto createStationDto) {
+        return stationFacade.add(createStationDto);
     }
 
 

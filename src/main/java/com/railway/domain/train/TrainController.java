@@ -1,5 +1,6 @@
 package com.railway.domain.train;
 
+import com.railway.domain.train.TrainFacade;
 import com.railway.domain.train.dto.TrainDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

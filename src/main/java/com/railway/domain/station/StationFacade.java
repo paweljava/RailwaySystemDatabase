@@ -1,6 +1,6 @@
 package com.railway.domain.station;
 
-import com.railway.domain.station.dto.StationDto;
+import com.railway.domain.station.dto.CreateStationDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -15,28 +15,28 @@ public class StationFacade {
         this.stationCreator = stationCreator;
     }
 
-    public StationDto add(StationDto stationDto) {
-        requireNonNull(stationDto);
-        final var station = stationCreator.from(stationDto);
+    public CreateStationDto add(CreateStationDto createStationDto) {
+        requireNonNull(createStationDto);
+        final var station = stationCreator.createStation(createStationDto);
         stationRepository.save(station);
         return station.dto();
     }
 
-    public StationDto show(String name) {
+    public CreateStationDto show(String name) {
         requireNonNull(name);
         final var station = stationRepository.findOneOrThrow(name);
         return station.dto();
     }
 
-    public Page<StationDto> findAll(Pageable pageable) {
+    public Page<CreateStationDto> findAll(Pageable pageable) {
         requireNonNull(pageable);
         return stationRepository
                 .findAll(pageable)
                 .map(Station::dto);
     }
 
-    /*public void delete(String name) {
+    public void delete(String name) {
         requireNonNull(name);
-        stationRepository.delete(name);
-    }*/
+        stationRepository.delete(stationRepository.findByName(name));
+    }
 }

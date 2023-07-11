@@ -2,13 +2,13 @@ package com.railway.domain.station
 
 
 import com.railway.domain.station.dto.StationNotFoundException
-import com.railway.domain.station.dto.StationDto
+import com.railway.domain.station.dto.CreateStationDto
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import spock.lang.Specification
 
-class StationSpec extends Specification implements SampleStations{
+class StationFacadeUnitTest extends Specification implements SampleStations{
 
     private final StationFacade facade = new StationConfiguration().stationFacade()
 
@@ -36,7 +36,7 @@ class StationSpec extends Specification implements SampleStations{
         facade.add(krakow)
 
         when: "we ask for all stations"
-        Page<StationDto> foundStations = facade.findAll(new PageRequest(0, 10, Sort.unsorted()))
+        Page<CreateStationDto> foundStations = facade.findAll(new PageRequest(0, 10, Sort.unsorted()))
 
         then: "system returns the stations we have added"
         System.out.println("Found stations: " + foundStations.getContent())

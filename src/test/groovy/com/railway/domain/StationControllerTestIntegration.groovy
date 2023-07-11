@@ -29,8 +29,13 @@ class StationControllerTestIntegration extends Specification implements SampleSt
 
     def setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-//                .apply(springSecurity())
+                // .apply(springSecurity())
                 .build()
+    }
+    def cleanupSpec() {
+        stationFacade.delete("Gdańsk")
+        stationFacade.delete("Warszawa")
+        stationFacade.delete("Kraków")
     }
 
     @WithMockUser
@@ -62,5 +67,11 @@ class StationControllerTestIntegration extends Specification implements SampleSt
                 .andExpect(content().json("""
                         {"name":"$warszawa.name","address":"$warszawa.address"}
                 """))
+
+        /*cleanup:
+        stationFacade.delete("Gdańsk")
+        stationFacade.delete("Warszawa")
+        stationFacade.delete("Kraków")*/
+
     }
 }

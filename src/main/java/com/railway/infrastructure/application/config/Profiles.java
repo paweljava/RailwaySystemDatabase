@@ -1,4 +1,4 @@
-package com.railway.infrastructure.config;
+package com.railway.infrastructure.application.config;
 
 public class Profiles {
     /**
