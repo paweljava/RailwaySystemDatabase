@@ -1,0 +1,35 @@
+delete from public.track
+delete from public.train
+delete from public.station
+
+
+insert into station(station_id, station_name, station_address) values ('b155c018-618b-4869-9be5-56c17f9b6b3f', 'Opole', 'Grunwaldzka 1')
+insert into station(station_id, station_name, station_address) values ('eceafca2-182e-493c-b4fe-500a1b2cfeb5', 'Lublin', 'Sosnowa 1')
+insert into station(station_id, station_name, station_address) values ('48e2f7c7-89a2-44f4-84a7-722d902638f9', 'Wrocław', 'Jodłowa 1')
+insert into station(station_id, station_name, station_address) values ('1487501a-bb04-47d6-aeda-f85a935eac02', 'Katowice', 'Wrzosowa 1')
+insert into station(station_id, station_name, station_address) values ('c3d02edd-4cb9-4290-a43e-7e647ca1fcb9', 'Białystok', 'Zwierzyniecka 1')
+insert into station(station_id, station_name, station_address) values ('eb9d8bc1-b811-4fd8-9e43-9b2b743ae6f3', 'Szczecin', 'Modrzewiowa 1')
+insert into station(station_id, station_name, station_address) values ('3e5c92ce-ddc5-4bc8-a877-72b3b651069b', 'Przemyśl', 'Sitarska 1')
+insert into station(station_id, station_name, station_address) values ('26b5aeb7-3363-435a-b2b2-bc2b01b30df0', 'Rzeszów', 'Gorajskiego 1')
+insert into station(station_id, station_name, station_address) values ('9f94a4b4-ced3-4d2c-a75b-ea6cb30cbaa3', 'Łódź', 'Leśna 1')
+
+insert into train(train_id, train_name) values ('2237bf5c-d4e4-4af2-b36e-4f6357ee5ead', 'Train 1')
+insert into train(train_id, train_name) values ('8ce6881f-091e-4ce7-9cc0-b1e6c03b40c0', 'Train 2')
+insert into train(train_id, train_name) values ('e55ce215-e72f-4bd2-87a0-a1579f58a61b', 'Train 3')
+insert into train(train_id, train_name) values ('1fa06545-6ada-49f8-ab5c-d7c9f3657769', 'Train 4')
+insert into train(train_id, train_name) values ('071f3796-b95a-480c-9532-54968ff294a6', 'Train 5')
+insert into train(train_id, train_name) values ('d0d4e597-089f-45ec-844c-7ce6b10217e0', 'Train 6')
+insert into train(train_id, train_name) values ('0eed651d-9fe3-4e5e-9b4e-f57015290cb6', 'Train 7')
+insert into train(train_id, train_name) values ('a5af8c71-07f7-40eb-837c-be751c0aa945', 'Train 8')
+insert into train(train_id, train_name) values ('9ab25f7d-ae40-4af6-9cd2-50f3fd1777d5', 'Train 9')
+insert into train(train_id, train_name) values ('44d79911-c936-4c51-904e-edc91e74d819', 'Train 10')
+
+insert into track(track_id, train_id, source_station_id, destination_station_id, time_in, time_out) values ('55a4d2f5-5874-4b9c-957d-7ef72bc46004', '2237bf5c-d4e4-4af2-b36e-4f6357ee5ead', 'b155c018-618b-4869-9be5-56c17f9b6b3f', 'eceafca2-182e-493c-b4fe-500a1b2cfeb5', '8:39', '12:39')
+insert into track(track_id, train_id, source_station_id, destination_station_id, time_in, time_out) values ('442b29a2-1cd3-4060-8b29-ba0d95f04783', '8ce6881f-091e-4ce7-9cc0-b1e6c03b40c0', 'eceafca2-182e-493c-b4fe-500a1b2cfeb5', '48e2f7c7-89a2-44f4-84a7-722d902638f9', '11:39', '13:39')
+insert into track(track_id, train_id, source_station_id, destination_station_id, time_in, time_out) values ('9482b616-35c1-41c8-94b1-fb8328099722', 'e55ce215-e72f-4bd2-87a0-a1579f58a61b', '48e2f7c7-89a2-44f4-84a7-722d902638f9', '1487501a-bb04-47d6-aeda-f85a935eac02', '12:39', '14:39')
+insert into track(track_id, train_id, source_station_id, destination_station_id, time_in, time_out) values ('adf2a0f7-1620-4404-88db-511403bce718', '1fa06545-6ada-49f8-ab5c-d7c9f3657769', '1487501a-bb04-47d6-aeda-f85a935eac02', 'c3d02edd-4cb9-4290-a43e-7e647ca1fcb9', '13:39', '15:39')
+insert into track(track_id, train_id, source_station_id, destination_station_id, time_in, time_out) values ('80b70b21-3133-49f0-a830-17fa0b0645a0', '071f3796-b95a-480c-9532-54968ff294a6', 'c3d02edd-4cb9-4290-a43e-7e647ca1fcb9', 'eb9d8bc1-b811-4fd8-9e43-9b2b743ae6f3', '14:39', '16:39')
+insert into track(track_id, train_id, source_station_id, destination_station_id, time_in, time_out) values ('74ec79e8-b855-4cd8-a8b4-f5bd99f5639e', 'd0d4e597-089f-45ec-844c-7ce6b10217e0', 'eb9d8bc1-b811-4fd8-9e43-9b2b743ae6f3', '3e5c92ce-ddc5-4bc8-a877-72b3b651069b', '15:39', '17:39')
+insert into track(track_id, train_id, source_station_id, destination_station_id, time_in, time_out) values ('372d054a-c554-4a72-b6c5-4c8efdb3b20d', '0eed651d-9fe3-4e5e-9b4e-f57015290cb6', '3e5c92ce-ddc5-4bc8-a877-72b3b651069b', '26b5aeb7-3363-435a-b2b2-bc2b01b30df0', '16:39', '18:39')
+insert into track(track_id, train_id, source_station_id, destination_station_id, time_in, time_out) values ('ccc022aa-d555-4fab-9aa5-af2063d867d7', 'a5af8c71-07f7-40eb-837c-be751c0aa945', '26b5aeb7-3363-435a-b2b2-bc2b01b30df0', '9f94a4b4-ced3-4d2c-a75b-ea6cb30cbaa3', '17:39', '19:39')
+insert into track(track_id, train_id, source_station_id, destination_station_id, time_in, time_out) values ('a0a87575-b0d5-4306-a24c-4081124694e8', '9ab25f7d-ae40-4af6-9cd2-50f3fd1777d5', '9f94a4b4-ced3-4d2c-a75b-ea6cb30cbaa3', 'b155c018-618b-4869-9be5-56c17f9b6b3f', '18:39', '20:39')
