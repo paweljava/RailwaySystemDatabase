@@ -6,5 +6,4 @@ import lombok.Builder;
 
 @Builder
 public record CreateStationDto(StationName stationName, StationAddress stationAddress) {
-
 }

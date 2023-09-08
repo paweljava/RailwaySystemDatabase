@@ -4,6 +4,9 @@ import com.railway.station.domain.StationFacade;
 import com.railway.station.domain.common.StationAddress;
 import com.railway.station.domain.common.StationName;
 import com.railway.station.domain.dto.CreateStationDto;
+import com.railway.station.infrastructure.query.StationQueryDto;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,26 +26,42 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class StationControllerTest {
 
     @Autowired
-    private StationFacade stationFacade;
+    private MockMvc mockMvc;
 
     @Autowired
-    private MockMvc mockMvc;
+    private StationFacade stationFacade;
+
+    private CreateStationDto gdansk;
+    private CreateStationDto warszawa;
+    private CreateStationDto krakow;
+
+    private StationQueryDto stationGdansk;
+    private StationQueryDto stationWarszawa;
+    private StationQueryDto stationKrakow;
+
+    @BeforeEach
+    void setUp() {
+        gdansk = new CreateStationDto(StationName.of("Gdańsk"), StationAddress.of("Podwale Grodzkie 2"));
+        warszawa = new CreateStationDto(StationName.of("Warszawa"), StationAddress.of("Al. Jerozolimskie 54"));
+        krakow = new CreateStationDto(StationName.of("Kraków"), StationAddress.of("Ul. Pawia 5a"));
+        setupInitialData();
+    }
+
+    @AfterEach
+    void cleanupData() {
+        stationFacade.deleteStation(stationGdansk.stationId());
+        stationFacade.deleteStation(stationWarszawa.stationId());
+        stationFacade.deleteStation(stationKrakow.stationId());
+    }
 
     @Test
     void should_get_station_by_id() throws Exception {
-        // given: 'Inventory has stations: Gdańsk, Warszawa, Kraków'
-        final var stationWarszawa = stationFacade.addStation(
-                new CreateStationDto(StationName.of("Warszawa"), StationAddress.of("Al. Jerozolimskie 54")));
-        stationFacade.addStation(new CreateStationDto(
-                StationName.of("Gdańsk"), StationAddress.of("Podwale Grodzkie 2")));
-        stationFacade.addStation(new CreateStationDto(
-                StationName.of("Kraków"), StationAddress.of("Ul. Pawia 5a")));
-
-        // when: 'I go to /station/{stationId}'
+        // given
+        // when
         final var getStation = mockMvc.perform(get("/api/station/{stationId}",
                 stationWarszawa.stationId().getValue()));
 
-        // then: 'I see details of that station'
+        // then
         getStation.andExpect(status().isOk()).andExpect(content().json("""
                     {
                         "stationId": {"value": "%s"},
@@ -56,16 +75,11 @@ class StationControllerTest {
 
     @Test
     void should_get_all_stations() throws Exception {
-
-        // given 'Inventory has stations: Gdańsk, Warszawa Kraków'
-        final var stationGdansk = stationFacade.addStation(new CreateStationDto(StationName.of("Gdańsk"), StationAddress.of("Podwale Grodzkie 2")));
-        final var stationWarszawa = stationFacade.addStation(new CreateStationDto(StationName.of("Warszawa"), StationAddress.of("Al. Jerozolimskie 54")));
-        final var stationKrakow = stationFacade.addStation(new CreateStationDto(StationName.of("Kraków"), StationAddress.of("Ul. Pawia 5a")));
-
-        //when 'I go to /stations'
+        // given
+        // when
         final var getStations = mockMvc.perform(get("/api/stations"));
 
-        //then: 'I see all stations'
+        // then
         getStations.andExpect(status().isOk()).andExpect(content().json("""
                                 {
                         "content": [
@@ -112,6 +126,12 @@ class StationControllerTest {
                 stationKrakow.stationId().getValue(),
                 stationKrakow.stationName().getValue(),
                 stationKrakow.stationAddress().getValue())));
+    }
+
+    private void setupInitialData() {
+        stationGdansk = stationFacade.addStation(gdansk);
+        stationWarszawa = stationFacade.addStation(warszawa);
+        stationKrakow = stationFacade.addStation(krakow);
     }
 }
 

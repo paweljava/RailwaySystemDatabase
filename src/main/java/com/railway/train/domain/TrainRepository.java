@@ -23,6 +23,8 @@ interface TrainRepository extends JpaRepository<Train, TrainId> {
     @NonNull
     void delete(@NonNull Train train);
 
+    void deleteAll();
+
     default Train findOneOrThrow(TrainId trainId) {
         return findById(trainId).orElseThrow(() -> new TrainNotFoundException(trainId));
     }

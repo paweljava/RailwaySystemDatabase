@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import spock.lang.Specification
 
-class TrainFacadeTestUnit extends Specification implements SampleTrain {
+class TrainFacadeTest extends Specification implements SampleTrain {
 
     private final TrainFacade trainFacade = new TrainConfiguration().trainFacade()
 

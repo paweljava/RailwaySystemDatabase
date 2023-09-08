@@ -18,6 +18,7 @@ class StationFacadeTest extends Specification implements SampleStations {
 
         then: "system has this station"
             def result = facade.getStation(stationGdansk.stationId())
+            facade.getStation(stationGdansk.stationId()) == stationGdansk
 
             result.stationId() == stationGdansk.stationId()
             result.stationId().value == stationGdansk.stationId().value
@@ -35,7 +36,7 @@ class StationFacadeTest extends Specification implements SampleStations {
     }
 
     def "should list stations"() {
-        given: "we have stations in system Gdańsk, Warszawa i Kraków"
+        given: "we have stations in system Gdańsk, Warszawa and Kraków"
              def stationGdansk = facade.addStation(gdansk)
              def stationWarszawa = facade.addStation(warszawa)
              def stationKrakow = facade.addStation(krakow)

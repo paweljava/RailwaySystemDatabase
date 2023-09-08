@@ -1,7 +1,7 @@
 package com.railway.track.infrastructure;
 
 import com.railway.station.domain.common.StationId;
-import com.railway.track.domain.TrackFacade;
+import com.railway.track.domain.application.*;
 import com.railway.track.domain.common.TrackId;
 import com.railway.track.domain.dto.CreateTrackDto;
 import com.railway.track.infrastructure.query.TrackQueryDto;
@@ -16,35 +16,43 @@ import java.util.UUID;
 @RequestMapping("/api")
 class TrackController {
 
-    private final TrackFacade trackFacade;
+    private final TrackAdd trackAdd;
+    private final TrackFindAll trackFindAll;
+    private final TrackFindByTrackId trackFindByTrackId;
+    private final TrackFindByStartAndEndStationId trackFindByStartAndEndStationId;
+    private final TrackRemove trackRemove;
 
-    private TrackController(TrackFacade trackFacade) {
-        this.trackFacade = trackFacade;
+    TrackController(TrackAdd trackAdd, TrackFindAll trackFindAll, TrackFindByTrackId trackFindByTrackId, TrackFindByStartAndEndStationId trackFindByStartAndEndStationId, TrackRemove trackRemove) {
+        this.trackAdd = trackAdd;
+        this.trackFindAll = trackFindAll;
+        this.trackFindByTrackId = trackFindByTrackId;
+        this.trackFindByStartAndEndStationId = trackFindByStartAndEndStationId;
+        this.trackRemove = trackRemove;
     }
 
     @GetMapping("/track")
     TrackQueryDto getTrack(@RequestParam UUID id) {
-        return trackFacade.findTrackById(TrackId.of(id));
+        return trackFindByTrackId.findTrackById(TrackId.of(id));
     }
+
+    @GetMapping("/all-tracks")
+    Page<TrackQueryDto> getTracks(Pageable pageable) {
+        return trackFindAll.findAll(pageable);
+    }
+
 
     @GetMapping("/tracks")
-    Page<TrackQueryDto> getTracks(Pageable pageable) {
-        return trackFacade.findAll(pageable);
-    }
-
-
-    @GetMapping("/tracksbystationsids")
-    List<TrackQueryDto> getTracksByIdsStations(@RequestParam UUID startStationId, @RequestParam UUID endStationId) {
-        return trackFacade.findTracks(StationId.of(startStationId), StationId.of(endStationId));
+    List<TrackQueryDto> getTracksByStations(@RequestParam UUID startStationId, @RequestParam UUID endStationId) {
+        return trackFindByStartAndEndStationId.findTracks(StationId.of(startStationId), StationId.of(endStationId));
     }
 
     @PostMapping("/track/add")
     TrackQueryDto createTrack(@RequestBody CreateTrackDto createTrackDto) {
-        return trackFacade.addTrack(createTrackDto);
+        return trackAdd.addTrack(createTrackDto);
     }
 
     @DeleteMapping("track/delete")
-    void getTracks(@RequestParam ("trackId") TrackId trackId) {
-        trackFacade.delete(trackId);
+    void getTracks(@RequestParam("trackId") TrackId trackId) {
+        trackRemove.delete(trackId);
     }
 }

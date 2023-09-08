@@ -10,7 +10,6 @@ import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-
 @Entity
 @EqualsAndHashCode(of = "stationId")
 @Table(name = "station")

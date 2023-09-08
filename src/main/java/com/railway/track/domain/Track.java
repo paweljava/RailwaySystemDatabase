@@ -6,10 +6,7 @@ import com.railway.track.domain.dto.CreateTrackDto;
 import com.railway.track.infrastructure.query.TrackQueryDto;
 import com.railway.train.domain.common.TrainId;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalTime;
 
@@ -17,6 +14,7 @@ import java.time.LocalTime;
 @Builder
 @Entity
 @Table(name = "track")
+@EqualsAndHashCode(of = "trackId")
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 class Track {
 
@@ -57,8 +55,6 @@ class Track {
         this.destinationStationId = destinationStationId;
         this.timeIn = timeIn;
         this.timeOut = timeOut;
-        /*this.timeIn = LocalTime.parse(timeIn.format(ofPattern("HH:mm")));
-        this.timeOut = LocalTime.parse(timeOut.format(ofPattern("HH:mm")));*/
     }
 
     final CreateTrackDto createTrackDto() {

@@ -23,6 +23,8 @@ interface StationRepository extends JpaRepository<Station, StationId> {
     @NonNull
     void delete(@NonNull Station entity);
 
+    void deleteAll();
+
     default Station getByIdOrThrow(StationId stationId) {
         return findById(stationId).orElseThrow(() -> new StationNotFoundException(stationId));
     }

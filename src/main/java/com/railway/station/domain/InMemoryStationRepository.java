@@ -1,7 +1,7 @@
 package com.railway.station.domain;
 
-import com.railway.station.domain.common.StationId;
 import com.railway.common.ImplementMePleaseException;
+import com.railway.station.domain.common.StationId;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.NonNull;
 import org.springframework.data.domain.*;
@@ -170,7 +170,7 @@ class InMemoryStationRepository implements StationRepository {
 
     @Override
     public void deleteAll() {
-        throw new ImplementMePleaseException();
+        database.clear();
     }
 
     @Override
