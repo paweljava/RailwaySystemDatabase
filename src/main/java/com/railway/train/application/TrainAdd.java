@@ -1,6 +1,5 @@
 package com.railway.train.application;
 
-import com.railway.station.domain.dto.CreateStationDto;
 import com.railway.train.domain.TrainFacade;
 import com.railway.train.infrastructure.query.TrainQueryDto;
 import org.springframework.stereotype.Component;

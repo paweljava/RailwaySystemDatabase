@@ -16,10 +16,9 @@ class TrackFacadeTest extends Specification implements SampleTracks {
 
     def "should get a track"() {
         when: "when add a track"
-        def trackGdanskWarszawa = trackFacade.addTrack(gdanskWarszawa)
-        def trackWarszawaKrakow = trackFacade.addTrack(warszawaKrakow)
+
         def trackKrakowWarszawa = trackFacade.addTrack(krakowWarszawa)
-        def trackWarszawaGdansk = trackFacade.addTrack(warszawaGdansk)
+
 
         then: "system has this track"
         def result = trackFacade.findTrackById(trackKrakowWarszawa.trackId())

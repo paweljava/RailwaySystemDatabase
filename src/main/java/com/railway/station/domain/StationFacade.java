@@ -42,4 +42,8 @@ public class StationFacade {
         requireNonNull(stationId);
         stationRepository.deleteById(stationId);
     }
+
+    public void deleteAll() {
+        stationRepository.deleteAll();
+    }
 }

@@ -166,7 +166,7 @@ class InMemoryTrainRepository implements TrainRepository {
 
     @Override
     public void deleteAll() {
-        throw new ImplementMePleaseException();
+        database.clear();
     }
 
     @Override

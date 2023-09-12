@@ -14,7 +14,6 @@ import java.util.function.Function;
 
 import static java.util.Objects.requireNonNull;
 
-
 class InMemoryTrackRepository implements TrackRepository {
 
     private final ConcurrentHashMap<TrackId, Track> database = new ConcurrentHashMap<>();
@@ -55,7 +54,7 @@ class InMemoryTrackRepository implements TrackRepository {
 
     @Override
     public void deleteAll() {
-        throw new ImplementMePleaseException();
+        database.clear();
     }
 
     @Override

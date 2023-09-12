@@ -3,7 +3,7 @@ package com.railway.train.domain;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 class TrainConfiguration {
 
     TrainFacade trainFacade() {

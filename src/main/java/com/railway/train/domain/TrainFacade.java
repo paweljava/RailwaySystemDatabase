@@ -41,4 +41,8 @@ public class TrainFacade {
         requireNonNull(trainId);
         trainRepository.deleteById(trainId);
     }
+
+    public void deleteAll() {
+        trainRepository.deleteAll();
+    }
 }

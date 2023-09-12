@@ -1,8 +1,14 @@
 package com.railway.train.infrastructure;
 
+import com.railway.station.domain.common.StationAddress;
+import com.railway.station.domain.common.StationName;
+import com.railway.station.domain.dto.CreateStationDto;
 import com.railway.train.domain.TrainFacade;
 import com.railway.train.domain.common.TrainName;
 import com.railway.train.domain.dto.CreateTrainDto;
+import com.railway.train.infrastructure.query.TrainQueryDto;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,23 +28,42 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class TrainControllerTest {
 
     @Autowired
-    private TrainFacade trainFacade;
+    private MockMvc mockMvc;
 
     @Autowired
-    private MockMvc mockMvc;
+    private TrainFacade trainFacade;
+
+    private CreateTrainDto inka;
+    private CreateTrainDto awangarda;
+    private CreateTrainDto stanczyk;
+
+    private TrainQueryDto trainInka;
+    private TrainQueryDto trainAwangarda;
+    private TrainQueryDto trainStanczyk;
+
+    @BeforeEach
+    void setUp() {
+        inka = new CreateTrainDto(TrainName.of("Inka"));
+        awangarda = new CreateTrainDto(TrainName.of("Awangarda"));
+        stanczyk = new CreateTrainDto(TrainName.of("Stańczyk"));
+        setupInitialData();
+    }
+
+    @AfterEach
+    void cleanupData() {
+        trainFacade.delete(trainInka.trainId());
+        trainFacade.delete(trainStanczyk.trainId());
+        trainFacade.delete(trainAwangarda.trainId());
+    }
 
     @Test
     void should_get_train_by_id() throws Exception {
-        // given: 'Inventory has trains: Inka, Awangarda, Stańczyk'
-        final var trainInka = trainFacade.addTrain(new CreateTrainDto(TrainName.of("Inka")));
-        final var trainAwangarda = trainFacade.addTrain(new CreateTrainDto(TrainName.of("Awangarda")));
-        final var trainStanczyk = trainFacade.addTrain(new CreateTrainDto(TrainName.of("Stańczyk")));
-
-        // when: 'I go to /station/{stationId}'
+        // given
+        // when
         final var getTrain = mockMvc.perform(get("/api/train/{trainId}",
                 trainAwangarda.trainId().getValue()));
 
-        // then: 'I see details of that train'
+        // then
         getTrain.andExpect(status().isOk()).andExpect(content().json("""
                     {
                         "trainId": {"value": "%s"},
@@ -46,23 +71,15 @@ class TrainControllerTest {
                     }
                 """.formatted(trainAwangarda.trainId().getValue(),
                 trainAwangarda.trainName().getValue())));
-
-        /*trainFacade.delete(trainAwangarda.trainId());
-        trainFacade.delete(trainInka.trainId());
-        trainFacade.delete(trainStanczyk.trainId());*/
     }
 
     @Test
     void should_get_all_trains() throws Exception {
-        // given 'Inventory has trains: "Inka, Awangarda, Stańczyk"'
-        final var trainInka = trainFacade.addTrain(new CreateTrainDto(TrainName.of("Inka")));
-        final var trainAwangarda = trainFacade.addTrain(new CreateTrainDto(TrainName.of("Awangarda")));
-        final var trainStanczyk = trainFacade.addTrain(new CreateTrainDto(TrainName.of("Stańczyk")));
-
-        // when 'I go to /trains'
+        // given
+        // when
         final var getTrains = mockMvc.perform(get("/api/trains"));
 
-        // then: 'I see all trains'
+        // then
         getTrains.andExpect(status().isOk()).andExpect(content().json("""
                                 {
                         "content": [
@@ -103,5 +120,11 @@ class TrainControllerTest {
                 trainAwangarda.trainName().getValue(),
                 trainStanczyk.trainId().getValue(),
                 trainStanczyk.trainName().getValue())));
+    }
+
+    private void setupInitialData() {
+        trainInka = trainFacade.addTrain(inka);
+        trainAwangarda = trainFacade.addTrain(awangarda);
+        trainStanczyk = trainFacade.addTrain(stanczyk);
     }
 }
